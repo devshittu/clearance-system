@@ -1,0 +1,411 @@
+@extends('layouts.app')
+
+
+
+@section('content')
+
+   {{-- <div class="container">
+        @if (!Auth::user()->student_profile->has_transit)
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header alert-info">Notification</div>
+
+                        <div class="card-body">
+                            Your term has been migrated, to update your profile click the Migrate button below to set up your profile for the next term.
+                        </div>
+                        <div class="card-footer">
+
+                            <form id="accept-terminal-migration-form" action="{{ route('accept_terminal_migration') }}" method="POST"
+                                  style="display: none;">
+                                @csrf
+                            </form>
+                            <button type="button" class="btn btn-success"
+                                    onclick="event.preventDefault();
+                                        document.getElementById('accept-terminal-migration-form' ).submit();">
+                                Migrate</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        @endif
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="subjects-tab" data-toggle="tab" href="#subjects" role="tab"
+                           aria-controls="subjects" aria-selected="true">Subjects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                           aria-controls="profile" aria-selected="false">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="books-tab" data-toggle="tab" href="#books" role="tab"
+                           aria-controls="books" aria-selected="false">Recommended Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="calender-tab" data-toggle="tab" href="#calender" role="tab"
+                           aria-controls="calender" aria-selected="false">School Calender</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="results-tab" data-toggle="tab" href="#results" role="tab"
+                           aria-controls="results" aria-selected="true">Results</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+
+                    <div class="tab-pane fade show active" id="subjects" role="tabpanel" aria-labelledby="subjects-tab">
+
+                        <br>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="text-center">#</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Category</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                           --}}{{-- @foreach ($subjects as $key => $subject )
+                                <tr>
+                                    <th scope="row">
+                                        --}}{{----}}{{--{{ $subject->id }} --}}{{----}}{{--
+                                        {{ $key + 1 }}
+                                    </th>
+                                    <td>{{ $subject->academic_subject->title }}</td>
+                                    <td>{{ $subject->academic_subject->category ?? '-' }}</td>
+                                </tr>
+                            @endforeach--}}{{--
+                            </tbody>
+                        </table>
+
+                        <div class="row justify-content-end">
+                            <div class="col-md-6  justify-content-end">
+                                <a href="{{ route('show_student_result') }}" class="btn btn-primary pull-left">
+                                    Show Detailed Result</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="{{ route('show_student_result_past') }}" class="btn btn-dark pull-right">
+                                    Show Old Reports</a>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        --}}{{--Profile Tab...--}}{{--
+                        <br>
+
+                        @if (is_null(Auth::user()->avatar))
+                            <form id="file-upload-form" class="uploader" action="{{route('update_avatar')}}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+                                @csrf
+                                <input id="file-upload" type="file" name="{{ \App\Utils\Constants::DBC_AVATAR }}" accept="image/*" onchange="readURL(this);">
+                                <label for="file-upload" id="file-drag">
+                                    <img id="file-image" src="#" alt="Preview" class="hidden">
+                                    <div id="start" >
+                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                        <div>Select a file or drag here</div>
+                                        <div id="notimage" class="hidden">Please select an image</div>
+                                        <span id="file-upload-btn" class="btn btn-primary">Select a file</span>
+                                        <br>
+                                        <span class="text-danger">{{ $errors->first( \App\Utils\Constants::DBC_AVATAR ) }}</span>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </label>
+                            </form>
+                        @else
+                            <img src="{{ asset('storage/'.Auth::user()->avatar) }}" width="120px" height="120px">
+                        @endif
+                        <br>
+
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col" colspan="2" class="text-center">Personal Details</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">REG NO</th>
+                                <td>{{ Auth::user()->reg_code ?? '' }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Email</th>
+                                <td>{{ Auth::user()->email ?? '' }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Full Name</th>
+                                <td>{{ (Auth::user()->first_name . ' ' . Auth::user()->last_name) ??  ('Unknown User') }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Gender</th>
+                                <td>{{ Auth::user()->gender ?? ''}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">User Type</th>
+                                <td>{{ Auth::user()->type ?? '' }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Date of Birth</th>
+                                <td>{{ Auth::user()->date_of_birth ?? '' }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="books" role="tabpanel" aria-labelledby="books-tab">
+                        <br>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="text-center">Title</th>
+                                <th scope="col">ISBN</th>
+                                <th scope="col">Publication date</th>
+                                <th scope="col">Price</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">MacMillian English</th>
+                                <td>28-Dec-2019</td>
+                                <td>28-122019</td>
+                                <td>#1900</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="calender" role="tabpanel" aria-labelledby="calender-tab">
+                        <br>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="text-center">Event Title</th>
+                                <th scope="col" class="text-right">Publication date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Inter-House Sports</th>
+                                <td class="text-right">28-12-2019</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Continous Assesment Tests (C.A)</th>
+                                <td class="text-right">13-1-2020</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">
+
+                        <br>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="text-center">#</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">C.A. Test (30)</th>
+                                <th scope="col">Exam (70)</th>
+                                --}}{{--<th scope="col">Total</th>--}}{{--
+                                --}}{{--<th scope="col">Grade</th>--}}{{--
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            --}}{{--@foreach ($subjects as $key => $subject )
+                                @if (!is_null($subject->ca_test_score))
+                                <tr>
+                                    <th scope="row">
+                                        --}}{{----}}{{--{{ $subject->id }} --}}{{----}}{{--
+                                        {{ $key + 1 }}
+                                    </th>
+                                    <td>{{ $subject->academic_subject->title }}</td>
+                                    <td>{{ $subject->ca_test_score ?? '-' }}</td>
+                                    <td>{{ $subject->ca_exam_score ?? '-' }}</td>
+                                    --}}{{----}}{{--<td>{{ $subject->ca_total ?? '-' }}</td>--}}{{----}}{{--
+                                    --}}{{----}}{{--<td>{{ score_grade($subject->ca_total) }}</td>--}}{{----}}{{--
+                                </tr>
+                                @endif
+                            @endforeach--}}{{--
+                            </tbody>
+                        </table>
+
+                        <div class="row justify-content-end">
+                            <div class="col-md-6  justify-content-end">
+                                <a href="{{ route('show_student_result') }}" class="btn btn-primary pull-left">
+                                    Show Detailed Result</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="{{ route('show_student_result_past') }}" class="btn btn-dark pull-right">
+                                    Show Old Reports</a>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <section>
+                <div class="wizard">
+                    <div class="wizard-inner">
+                        <div class="connecting-line"></div>
+                        <ul class="nav nav-tabs" role="tablist">
+
+                            <li role="presentation" class="active">
+                                <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-folder-open"></i>
+                            </span>
+                                </a>
+                            </li>
+
+                            <li role="presentation" class="disabled">
+                                <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </span>
+                                </a>
+                            </li>
+                            <li role="presentation" class="disabled">
+                                <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-picture"></i>
+                            </span>
+                                </a>
+                            </li>
+
+                            <li role="presentation" class="disabled">
+                                <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-ok"></i>
+                            </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <form role="form">
+                        <div class="tab-content">
+                            <div class="tab-pane active" role="tabpanel" id="step1">
+                                <h3>Step 1</h3>
+                                <p>This is step 1</p>
+                                <ul class="list-inline pull-right">
+                                    <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane" role="tabpanel" id="step2">
+                                <h3>Step 2</h3>
+                                <p>This is step 2</p>
+                                <ul class="list-inline pull-right">
+                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                    <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane" role="tabpanel" id="step3">
+                                <h3>Step 3</h3>
+                                <p>This is step 3</p>
+                                <ul class="list-inline pull-right">
+                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                    <li><button type="button" class="btn btn-default next-step">Skip</button></li>
+                                    <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane" role="tabpanel" id="complete">
+                                <h3>Complete</h3>
+                                <p>You have successfully completed all steps.</p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>--}}
+
+   <div class="container" id="myWizard">
+
+       <h3>Clearance Wizard</h3>
+
+       <hr>
+
+       <div class="progress">
+           <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5" style="width: 20%;">
+               Step 1 of 5
+           </div>
+       </div>
+
+       <div class="navbar">
+           <div class="navbar-inner">
+               <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                   <li class="nav-item"><a href="#step1" class="nav-link active" data-toggle="tab" data-step="1">Step 1</a></li>
+                   <li class="nav-item"><a href="#step2" class="nav-link"  data-toggle="tab" data-step="2">Step 2</a></li>
+                   <li class="nav-item"><a href="#step3" class="nav-link" data-toggle="tab" data-step="3">Step 3</a></li>
+                   <li class="nav-item"><a href="#step4" class="nav-link" data-toggle="tab" data-step="4">Step 4</a></li>
+                   <li class="nav-item"><a href="#step5" class="nav-link" data-toggle="tab" data-step="5">Step 5</a></li>
+               </ul>
+           </div>
+       </div>
+       <div class="tab-content">
+           <div class="tab-pane fade in show active" id="step1">
+
+               <div class="well">
+
+                   <label>Security Question 1</label>
+                   <select class="form-control input-lg">
+                       <option value="What was the name of your first pet?">What was the name of your first pet?</option>
+                       <option value="Where did you first attend school?">Where did you first attend school?</option>
+                       <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
+                       <option value="What is your favorite car model?">What is your favorite car model?</option>
+                   </select>
+                   <br>
+                   <label>Enter Response</label>
+                   <input class="form-control input-lg">
+
+               </div>
+
+               <a class="btn btn-default btn-lg next"  href="#">Continue</a>
+           </div>
+           <div class="tab-pane fade" id="step2">
+               <div class="well">
+
+                   <label>Security Question 2</label>
+                   <select class="form-control  input-lg">
+                       <option value="What was the name of your first pet?">What was the name of your first pet?</option>
+                       <option selected="" value="Where did you first attend school?">Where did you first attend school?</option>
+                       <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
+                       <option value="What is your favorite car model?">What is your favorite car model?</option>
+                   </select>
+                   <br>
+                   <label>Enter Response</label>
+                   <input class="form-control  input-lg">
+
+               </div>
+               <a class="btn btn-default next" href="#">Continue</a>
+           </div>
+           <div class="tab-pane fade" id="step3">
+               <div class="well"> <h2>Step 3</h2> Add another step here..</div>
+               <a class="btn btn-default next" href="#">Continue</a>
+           </div>
+           <div class="tab-pane fade" id="step4">
+               <div class="well"> <h2>Step 4</h2> Add another almost done step here..</div>
+               <a class="btn btn-default next" href="#">Continue</a>
+           </div>
+           <div class="tab-pane fade" id="step5">
+               <div class="well"> <h2>Step 5</h2> You're Done!</div>
+               <a class="btn btn-success first" href="#">Start over</a>
+           </div>
+       </div>
+
+       <hr>
+
+       <a href="http://www.bootply.com/wj9gWh8ulj">Edit on Bootply</a>
+
+       <hr>
+
+   </div>
+
+@endsection
