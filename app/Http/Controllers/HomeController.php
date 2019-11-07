@@ -17,6 +17,7 @@ use App\ClassTerm;
 use App\SportClearanceLog;
 use App\SportQuestion;
 use App\StudentaffairClearanceLog;
+use App\StudentStaffClearanceStatus;
 use App\StudentTerminalLog;
 use App\StudentTerminalLogSubject;
 use App\User;
@@ -83,6 +84,20 @@ class HomeController extends Controller
             $studentaffairQuestionAnswers = StudentaffairClearanceLog::where('user_id', Auth::id())->get()->toArray();
             $data['studentaffair_question_answers'] = collect( array_column($studentaffairQuestionAnswers, 'answer', 'question_id'));
 
+            $facultyRoleId = Role::where('code_name', 'faculty')->first()->id;
+            $faculty_is_approved = StudentStaffClearanceStatus::where('user_id', Auth::id())->whereRoleId($facultyRoleId)->first();
+            $sportRoleId = Role::where('code_name', 'sport')->first()->id;
+            $sport_is_approved = StudentStaffClearanceStatus::where('user_id', Auth::id())->whereRoleId($sportRoleId)->first();
+            $libraryRoleId = Role::where('code_name', 'library')->first()->id;
+            $library_is_approved = StudentStaffClearanceStatus::where('user_id', Auth::id())->whereRoleId($libraryRoleId)->first();
+            $studentAffairsRoleId = Role::where('code_name', 'student_affairs')->first()->id;
+            $student_affairs_is_approved = StudentStaffClearanceStatus::where('user_id', Auth::id())->whereRoleId($studentAffairsRoleId)->first();
+
+            $data['faculty_is_approved'] = (!is_null($faculty_is_approved)) ? $faculty_is_approved->is_cleared : false;
+            $data['sport_is_approved'] = (!is_null($sport_is_approved)) ? $sport_is_approved->is_cleared : false;
+            $data['library_is_approved'] = (!is_null($library_is_approved)) ? $library_is_approved->is_cleared : false;
+            $data['student_affairs_is_approved'] = (!is_null($student_affairs_is_approved)) ? $student_affairs_is_approved->is_cleared : false;
+
 //            foreach ($data['faculty_question_answers'] as $answer) {
 //                dd($answer, $answer->faculty_question);
 //            }
@@ -115,21 +130,36 @@ class HomeController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function showClass(Request $request)
+    public function showDesk(Request $request)
     {
         $roleId = isset($request->query()[Constants::DBC_STAFF_ROLE_ID ]) ? $request->query()[Constants::DBC_STAFF_ROLE_ID ] : null;
         $academicSessionId = isset($request->query()[Constants::DBC_ACAD_SESS_ID ]) ? $request->query()[Constants::DBC_ACAD_SESS_ID ] : null;
 
         $getRoleById = Role::whereId($roleId)->first();
+        if ($getRoleById->code_name == Constants::DBCV_STAFF_ROLE_FACULTY ) {
+            $clLogs = FacultyClearanceLog::get()->groupBy('user_id');
+        }
+        elseif ($getRoleById->code_name == Constants::DBCV_STAFF_ROLE_LIBRARY ) {
+            $clLogs = LibraryClearanceLog::get()->groupBy('user_id');
+        }
+        elseif ($getRoleById->code_name == Constants::DBCV_STAFF_ROLE_SPORT ) {
+            $clLogs = SportClearanceLog::get()->groupBy('user_id');
+        }
+        elseif ($getRoleById->code_name == Constants::DBCV_STAFF_ROLE_STUDENT_AFFAIRS ) {
+            $clLogs = StudentaffairClearanceLog::get()->groupBy('user_id');
+        }
 
 
 //        get class of staff from ClassStaff and then
 
         $data['role'] = $getRoleById;
-        $data['class_students'] = $getRoleById->user_student_profiles;
+        $data['clearance_logs'] = $clLogs;
+//        dd($getRoleById);
+//        $data[]
+//        $data['class_students'] = $getRoleById->user_student_profiles;
 
 
-        $path = '/dashboard_' . Auth::user()->type . '.class_student';
+        $path = '/dashboard_' . Auth::user()->type . '.clearance_log';
         return view($path, $data);
     }
 

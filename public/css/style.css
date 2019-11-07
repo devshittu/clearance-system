@@ -140,3 +140,55 @@ span.round-tab:hover {
 	}
 }*/
 
+
+/*--// common css --*/
+
+.outer-w3-agile {
+    padding: 2em 1em;
+    -webkit-box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.25);
+    background: #fff;
+}
+
+.btn-style {
+    background: #f75757;
+    color: #fff;
+    border-color: #e04646;
+}
+
+.btn-style:hover {
+    background: #e04646;
+}
+
+.paragraph-agileits-w3layouts {
+    font-size: 14px;
+    letter-spacing: 1px;
+    line-height: 31px;
+    color: #8c8c8c;
+    font-weight: bold;
+}
+
+.sub-title-w3-agileits {
+    font-size: 1.7em;
+    letter-spacing: 2px;
+    color: #4c6ef5;
+    font-weight: 600;
+}
+
+h2.main-title-w3layouts {
+    font-size: 3.9em;
+    letter-spacing: 4px;
+    color: #292929;
+    text-shadow: 2px 2px 3px #838386;
+    text-transform: capitalize;
+}
+
+h4.tittle-w3-agileits {
+    font-size: 2em;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    color: #3e3e3e;
+    text-align: center;
+}
+h5{font-weight: bolder}

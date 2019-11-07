@@ -177,7 +177,7 @@
                                     <tr>
                                         <th scope="col">SN</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Class</th>
+                                        <th scope="col">Role</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                     </thead>

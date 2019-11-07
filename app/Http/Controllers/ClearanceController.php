@@ -10,6 +10,7 @@ use App\SportClearanceLog;
 use App\SportQuestion;
 use App\StudentaffairClearanceLog;
 use App\StudentaffairQuestion;
+use App\StudentStaffClearanceStatus;
 use App\Utils\Constants;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -47,6 +48,7 @@ class ClearanceController extends Controller
         return redirect()->back()->with('success_message', 'Application submitted for Faculty clearance!.');
 
     }
+
     function apply_library_clearance(Request $request)
     {
         $newInputArray = [];
@@ -78,6 +80,7 @@ class ClearanceController extends Controller
         return redirect()->back()->with('success_message', 'Application submitted for Library clearance!.');
 
     }
+
     function apply_sport_clearance(Request $request)
     {
         $newInputArray = [];
@@ -140,5 +143,25 @@ class ClearanceController extends Controller
 
         return redirect()->back()->with('success_message', 'Application submitted for Student Affairs clearance!.');
 
+    }
+
+
+    public function clearStudentInRoleByStaff(Request $request, $student_id, $role_id)
+    {
+        $checkStatus = StudentStaffClearanceStatus::where('staff_id', Auth::id())->where('user_id', $student_id)->first();
+        $getClearanceStatus = !is_null($checkStatus) ? $checkStatus->is_cleared : false;
+        if ($getClearanceStatus) {
+            $checkStatus->is_cleared = true;
+            $checkStatus->save();
+        } else {
+            $newClearance = new StudentStaffClearanceStatus;
+            $newClearance->is_cleared = true;
+            $newClearance->staff_id = Auth::id();
+            $newClearance->role_id = $role_id;
+            $newClearance->user_id = $student_id;
+            $newClearance->save();
+        }
+
+        return redirect()->back()->with('success_message', 'Student cleared!');
     }
 }

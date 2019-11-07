@@ -346,24 +346,167 @@
                 <div class="navbar">
                     <div class="navbar-inner">
                         <ul class="nav nav-pills" id="pills-tab" role="tablist">
-                            <li class="nav-item"><a href="#step1" class="nav-link active" data-toggle="tab"
-                                                    data-step="1">Faculty </a></li>
-                            <li class="nav-item"><a href="#step2" class="nav-link" data-toggle="tab" data-step="2">Library</a>
+                            <li class="nav-item"><a href="#step1" class="nav-link" data-toggle="tab" data-step="1">Status
+                                </a>
                             </li>
-                            <li class="nav-item"><a href="#step3" class="nav-link" data-toggle="tab"
-                                                    data-step="3">Sport</a>
+                            <li class="nav-item"><a href="#step2" class="nav-link active" data-toggle="tab"
+                                                    data-step="2">Faculty </a></li>
+                            <li class="nav-item"><a href="#step3" class="nav-link" data-toggle="tab" data-step="3">Library</a>
                             </li>
-                            <li class="nav-item"><a href="#step4" class="nav-link" data-toggle="tab" data-step="4">Student
-                                    Affiars</a>
+                            <li class="nav-item"><a href="#step4" class="nav-link" data-toggle="tab"
+                                                    data-step="4">Sport</a>
                             </li>
-                            <li class="nav-item"><a href="#step5" class="nav-link" data-toggle="tab" data-step="5">Print
-                                    Acknowledgement </a>
+                            <li class="nav-item"><a href="#step5" class="nav-link" data-toggle="tab" data-step="5">Student
+                                    Affairs</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="tab-content">
-                    <div class="tab-pane fade in show active" id="step1">
+                    <div class="tab-pane fade" id="step1">
+                        <div class="well container">
+                            <div class="row  justify-content-between">
+                                <div class="col-md-5 p-3 mt-3 d-flex align-items-center justify-content-between bg-white border-dark border-1 ">
+
+                                    <div class="s-l">
+                                        <h5>Faculty</h5>
+                                        @if($faculty_is_approved)
+                                            <p class="paragraph-agileits-w3layouts text-success">Cleared</p>
+                                        @elseif($faculty_question_answers->count() == 0)
+                                            <p class="paragraph-agileits-w3layouts text-danger">You have not applied</p>
+                                        @else
+                                            <p class="paragraph-agileits-w3layouts text-info">Submitted, pending
+                                                approval</p>
+                                        @endif
+                                    </div>
+                                    <div class="s-r">
+                                        {{--<h6>340
+                                            <i class="far fa-edit"></i>
+                                        </h6>--}}
+                                    </div>
+
+                                </div>
+                                <div class="col-md-5  p-3 mt-3 d-flex align-items-center justify-content-between bg-white ml-auto">
+                                    <div class="s-l">
+                                        <h5>Library</h5>
+                                        @if($library_is_approved)
+                                            <p class="paragraph-agileits-w3layouts text-success">Cleared</p>
+                                        @elseif($library_question_answers->count() == 0)
+                                            <p class="paragraph-agileits-w3layouts text-danger">You have not applied</p>
+                                        @elseif(!is_null($library_question_answers))
+                                            <p class="paragraph-agileits-w3layouts text-info">Submitted, pending
+                                                approval</p>
+                                        @endif
+                                    </div>
+                                    <div class="s-r">
+                                        {{--<h6>340
+                                            <i class="far fa-edit"></i>
+                                        </h6>--}}
+                                    </div>
+                                </div>
+                                <div class="w-100"></div>
+
+                                <div class="col-md-5 p-3 mt-3 d-flex align-items-center justify-content-between bg-white  ">
+
+                                    <div class="s-l">
+                                        <h5>Sports</h5>
+
+                                        @if($sport_is_approved)
+                                            <p class="paragraph-agileits-w3layouts text-success">Cleared</p>
+                                        @elseif($sport_question_answers->count() == 0)
+                                            <p class="paragraph-agileits-w3layouts text-danger">You have not applied</p>
+                                        @else
+                                            <p class="paragraph-agileits-w3layouts text-info">Submitted, pending
+                                                approval</p>
+                                        @endif
+                                    </div>
+                                    <div class="s-r">
+                                        {{--<h6>340
+                                            <i class="far fa-edit"></i>
+                                        </h6>--}}
+                                    </div>
+
+                                </div>
+                                <div class="col-md-5  p-3 mt-3 d-flex align-items-center justify-content-between bg-white ml-auto">
+                                    <div class="s-l">
+                                        <h5>Student Affairs</h5>
+                                        @if($student_affairs_is_approved)
+                                            <p class="paragraph-agileits-w3layouts text-success">Cleared</p>
+                                        @elseif($studentaffair_question_answers->count() == 0)
+                                            <p class="paragraph-agileits-w3layouts text-danger">You have not applied</p>
+                                        @else
+                                            <p class="paragraph-agileits-w3layouts text-info">Submitted, pending approval</p>
+                                        @endif
+                                    </div>
+                                    <div class="s-r">
+                                        {{--<h6>340
+                                            <i class="far fa-edit"></i>
+                                        </h6>--}}
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="justify-content-center">
+                                {{--<div class="col-md-8 ">--}}
+                                <div class="">
+                                    <h2>Check back later!</h2>
+                                    Your clearance is currently been processed. Once completed you will have access to
+                                    the print key for the acknowledgement slip.
+
+                                    //TODO:
+                                    Check if he
+                                    {{--<div class="outer-w3-agile col-xl">
+                                        <div class="stat-grid p-3 d-flex align-items-center justify-content-between ">
+                                            <div class="s-l">
+                                                <h5>Projects</h5>
+                                                <p class="paragraph-agileits-w3layouts text-white">Submitted</p>
+                                            </div>
+                                            <div class="s-r">
+                                                <h6>340
+                                                    <i class="far fa-edit"></i>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between bg-success">
+                                            <div class="s-l">
+                                                <h5>Clients</h5>
+                                                <p class="paragraph-agileits-w3layouts">Submitted</p>
+                                            </div>
+                                            <div class="s-r">
+                                                <h6>250
+                                                    <i class="far fa-smile"></i>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between bg-danger">
+                                            <div class="s-l">
+                                                <h5>Tasks</h5>
+                                                <p class="paragraph-agileits-w3layouts">Submitted</p>
+                                            </div>
+                                            <div class="s-r">
+                                                <h6>232
+                                                    <i class="fas fa-tasks"></i>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between bg-warning">
+                                            <div class="s-l">
+                                                <h5>Employees</h5>
+                                                <p class="paragraph-agileits-w3layouts">Submitted</p>
+                                            </div>
+                                            <div class="s-r">
+                                                <h6>190
+                                                    <i class="fas fa-users"></i>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>--}}
+                                </div>
+                            </div>
+                        </div>
+                        {{--<a class="btn btn-success first" href="#">Start over</a>--}}
+                    </div>
+                    <div class="tab-pane fade in show active" id="step2">
 
                         <div class="well">
 
@@ -412,7 +555,7 @@
                         </div>
 
                     </div>
-                    <div class="tab-pane fade" id="step2">
+                    <div class="tab-pane fade" id="step3">
                         <div class="well">
 
                             <div class="card-body">
@@ -459,7 +602,7 @@
                         </div>
                         {{--<a class="btn btn-default next" href="#">Continue</a>--}}
                     </div>
-                    <div class="tab-pane fade" id="step3">
+                    <div class="tab-pane fade" id="step4">
                         <div class="well">
 
                             <div class="card-body">
@@ -505,7 +648,7 @@
                         </div>
                         {{--<a class="btn btn-default next" href="#">Continue</a>--}}
                     </div>
-                    <div class="tab-pane fade" id="step4">
+                    <div class="tab-pane fade" id="step5">
                         <div class="well">
 
                             <div class="card-body">
@@ -550,17 +693,6 @@
                             </div>
                         </div>
                         {{--<a class="btn btn-default next" href="#">Continue</a>--}}
-                    </div>
-                    <div class="tab-pane fade" id="step5">
-                        <div class="well container">
-                            <div class="justify-content-center">
-                                <div class="col-md-8 ">
-                                <h2>Check back later!</h2>
-                                    Your clearance is currently been processed. Once completed you will have access to the print key for the acknowledgement slip.
-                                </div>
-                            </div>
-                        </div>
-                        {{--<a class="btn btn-success first" href="#">Start over</a>--}}
                     </div>
                 </div>
             </div>

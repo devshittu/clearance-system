@@ -14,4 +14,13 @@ class Role extends Model
     {
         return $this->hasMany('App\RoleStaff', 'role_id', 'id');
     }
+    public function student_staff_clearance_status()
+    {
+        return $this->hasMany('App\StudentStaffClearanceStatus', 'role_id', 'id');
+    }
+//    public function student_affair_clearance_log()
+//    {
+//        return $this->hasMany('App\StudentaffairClearanceLog', 'role_id', 'id');
+//    }
+
 }

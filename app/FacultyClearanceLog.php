@@ -13,8 +13,12 @@ class FacultyClearanceLog extends Model
     /**
      * Get the staff record associated with the user if it is staff .
      */
-    public function faculty_question()
+    public function question()
     {
         return $this->belongsTo('App\FacultyQuestion', 'question_id', 'id');
+    }
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id', 'id');
     }
 }

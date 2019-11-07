@@ -13,9 +13,13 @@ class StudentaffairClearanceLog extends Model
     /**
      * Get the staff record associated with the user if it is staff .
      */
-    public function studentaffair_question()
+    public function question()
     {
         return $this->belongsTo('App\StudentaffairQuestion', 'question_id', 'id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id', 'id');
+    }
 }
