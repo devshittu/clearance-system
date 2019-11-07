@@ -5,18 +5,14 @@
 @section('content')
 
     <div class="container">
-        <h1 class="text-center">{{ $settings->school_name }}</h1>
+        <h1 class="text-center">{{ $settings->system_name }}</h1>
         <br>
-        <h3 class="text-center">Terminal Report</h3>
-        <br>
-        <h3 class="text-center">{{ $student_terminal_log->class_term->academic_class->title }}  ({{ $student_terminal_log->class_term->academic_class->code_name }})</h3>
+        <h3 class="text-center">Acknowledgement Slip</h3>
         <br>
         <div class="card">
             <div class="card-header">
                 <div>Academic Session
-                <strong> {{ $student_terminal_log->academic_session->title }}</strong></div>
-                <div class="text-center" style="display: block; margin: 0 auto; width: 200px"> Position: <strong>3rd</strong></div>
-                <div class="float-right"> <strong>{{ $student_terminal_log->class_term->academic_term->title }}</strong> Term</div>
+                <strong> {{ $settings->academic_session->title }}</strong></div>
                 <div class="clearfix"></div>
             </div>
             <div class="card-body">
@@ -53,30 +49,24 @@
                         <thead>
                         <tr>
                             <th scope="col" class="text-center">#</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">C.A. Test (30)</th>
-                            <th scope="col">Exam (70)</th>
-                            <th scope="col">Total</th>
-                            <th scope="col">Grade</th>
+                            <th scope="col">Unit</th>
+                            <th scope="col">Staff</th>
+                            <th scope="col">Date</th>
                         </tr>
                         </thead>
                         <tbody>
 
 
-                        @foreach ($subjects as $key => $subject )
-                            @if (!is_null($subject->ca_test_score))
+                        @foreach ($statuses as $key => $status )
                             <tr>
                                 <th scope="row" class="text-center">
                                     {{--{{ $subject->id }} --}}
                                     {{ ++ $key }}
                                 </th>
-                                <td class="left">{{ $subject->academic_subject->title }}</td>
-                                <td class="right">{{ $subject->ca_test_score ?? '-' }}</td>
-                                <td class="right">{{ $subject->ca_exam_score ?? '-' }}</td>
-                                <td>{{ $subject->ca_total ?? '-' }}</td>
-                                <td class="right">{{ score_grade($subject->ca_total) }}</td>
+                                <td class="left">{{ $status->role->title }}</td>
+                                <td class="right">{{ $status->staff->full_name ?? '-' }}</td>
+                                <td class="right">{{ $status->is_cleared ? 'Cleared' : 'Pending' }}</td>
                             </tr>
-                            @endif
                         @endforeach
 
                         </tbody>

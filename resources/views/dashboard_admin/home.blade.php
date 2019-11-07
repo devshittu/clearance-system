@@ -14,9 +14,9 @@
                                href="#v-pills-home" role="tab" aria-controls="v-pills-home"
                                aria-selected="true">Users</a>
                             <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile"
-                               role="tab" aria-controls="v-pills-profile" aria-selected="false">Staff Duties</a>
+                               role="tab" aria-controls="v-pills-profile" aria-selected="false">Staff Roles</a>
                             <a class="nav-link" id="v-pills-classes-tab" data-toggle="pill" href="#v-pills-classes"
-                               role="tab" aria-controls="v-pills-classes" aria-selected="false">Classes</a>
+                               role="tab" aria-controls="v-pills-classes" aria-selected="false">Roles</a>
                             <a class="nav-link" id="v-pills-sessions-tab" data-toggle="pill" href="#v-pills-sessions"
                                role="tab" aria-controls="v-pills-sessions" aria-selected="false">Sessions</a>
                         </div>
@@ -48,7 +48,7 @@
                                                     <button type="button" class="btn btn-danger btn-sm"
                                                             data-toggle="modal"
                                                             data-target="#deleteUserModal{{ $u->id }}"
-                                                            @if(($u->id === Auth::id()) || $u->type === \App\Utils\Constants::DBCV_USER_TYPE_ADMIN) disabled @endif>
+                                                            @if(($u->id === Auth::id()) || $u->type === \App\Utils\Constants::DBCV_USER_TYPE_ADMIN || $u->type === \App\Utils\Constants::DBCV_USER_TYPE_STAFF) disabled @endif>
                                                         Delete
                                                     </button>
                                                     <div class="modal fade" id="deleteUserModal{{ $u->id }}"
@@ -93,7 +93,6 @@
                                                     </div>
 
                                                 @if ($u->type === 'candidate')
-                                                    {{--<a href="{{ $u->id }}" class="btn btn-dark btn-sm"> View</a>--}}
                                                     <!-- Button trigger modal -->
                                                         <button type="button" class="btn btn-dark btn-sm"
                                                                 data-toggle="modal"
@@ -287,19 +286,18 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {{--@if (count($academic_classes) == 0)--}}
+                                    @if (count($roles) == 0)
                                         <p>No user exist </p>
-                                    {{--@else--}}
-                                        {{--@foreach ($academic_classes as $c)--}}
-                                            {{--<tr>--}}
-                                                {{--<th scope="row">{{ $c->id }}</th>--}}
-                                                {{--<td>{{ $c->title }}</td>--}}
-                                                {{--<td> {{ $c->code_name }}</td>--}}
-                                            {{--</tr>--}}
-                                        {{--@endforeach--}}
-                                        <p>Classes exist</p>
+                                    @else
+                                        @foreach ($roles as $c)
+                                            <tr>
+                                                <th scope="row">{{ $c->id }}</th>
+                                                <td>{{ $c->title }}</td>
+                                                <td> {{ $c->code_name }}</td>
+                                            </tr>
+                                        @endforeach
 
-                                    {{--@endif--}}
+                                    @endif
                                     </tbody>
                                 </table>
 

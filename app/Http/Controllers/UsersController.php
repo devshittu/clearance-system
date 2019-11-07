@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\RoleStaff;
 use App\ClassSubject;
 use App\ClassTerm;
+use App\StudentStaffClearanceStatus;
 use App\StudentTerminalLog;
 use App\StudentTerminalLogSubject;
 use App\SystemSetting;
@@ -269,6 +270,20 @@ class UsersController extends Controller
 
 
         $path = '/dashboard_' . Auth::user()->type . '.result';
+        return view($path, $data);
+    }
+
+
+    public function showAckSlip(Request $request)
+    {
+
+        $data = array();
+        $status = StudentStaffClearanceStatus::where('user_id', Auth::id())->get();
+        $data['statuses'] = $status;
+//        dump($status);
+
+
+        $path = '/dashboard_' . Auth::user()->type . '.ack_slip';
         return view($path, $data);
     }
 

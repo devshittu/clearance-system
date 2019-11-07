@@ -359,6 +359,9 @@
                             <li class="nav-item"><a href="#step5" class="nav-link" data-toggle="tab" data-step="5">Student
                                     Affairs</a>
                             </li>
+                            <li class="nav-item"><a href="#step6" class="nav-link" data-toggle="tab" data-step="6">Student
+                                    Profile Photo</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -435,7 +438,8 @@
                                         @elseif($studentaffair_question_answers->count() == 0)
                                             <p class="paragraph-agileits-w3layouts text-danger">You have not applied</p>
                                         @else
-                                            <p class="paragraph-agileits-w3layouts text-info">Submitted, pending approval</p>
+                                            <p class="paragraph-agileits-w3layouts text-info">Submitted, pending
+                                                approval</p>
                                         @endif
                                     </div>
                                     <div class="s-r">
@@ -449,58 +453,24 @@
                             <div class="justify-content-center">
                                 {{--<div class="col-md-8 ">--}}
                                 <div class="">
+                                    @if(!$faculty_is_approved or !$library_is_approved or !$sport_is_approved or !$student_affairs_is_approved )
                                     <h2>Check back later!</h2>
-                                    Your clearance is currently been processed. Once completed you will have access to
-                                    the print key for the acknowledgement slip.
+                                    <p>Your clearance is currently been processed. Once completed you will have access to
+                                        the print key for the acknowledgement slip.</p>
+                                    @else
+                                        <h2>Cleared</h2>
+                                        <p>Your acknowledgement slip is ready to be printed. click the button below to print it.</p>
+                                    @endif
 
-                                    //TODO:
-                                    Check if he
-                                    {{--<div class="outer-w3-agile col-xl">
-                                        <div class="stat-grid p-3 d-flex align-items-center justify-content-between ">
-                                            <div class="s-l">
-                                                <h5>Projects</h5>
-                                                <p class="paragraph-agileits-w3layouts text-white">Submitted</p>
-                                            </div>
-                                            <div class="s-r">
-                                                <h6>340
-                                                    <i class="far fa-edit"></i>
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between bg-success">
-                                            <div class="s-l">
-                                                <h5>Clients</h5>
-                                                <p class="paragraph-agileits-w3layouts">Submitted</p>
-                                            </div>
-                                            <div class="s-r">
-                                                <h6>250
-                                                    <i class="far fa-smile"></i>
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between bg-danger">
-                                            <div class="s-l">
-                                                <h5>Tasks</h5>
-                                                <p class="paragraph-agileits-w3layouts">Submitted</p>
-                                            </div>
-                                            <div class="s-r">
-                                                <h6>232
-                                                    <i class="fas fa-tasks"></i>
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <div class="stat-grid p-3 mt-3 d-flex align-items-center justify-content-between bg-warning">
-                                            <div class="s-l">
-                                                <h5>Employees</h5>
-                                                <p class="paragraph-agileits-w3layouts">Submitted</p>
-                                            </div>
-                                            <div class="s-r">
-                                                <h6>190
-                                                    <i class="fas fa-users"></i>
-                                                </h6>
-                                            </div>
-                                        </div>
-                                    </div>--}}
+
+                                    @if($faculty_is_approved && $library_is_approved && $sport_is_approved && $student_affairs_is_approved )
+
+                                        <a href="{{ route('show_ack_slip', [
+                                ]) }}" class="btn btn-primary btn-sm pull-left">
+                                            Acknowledgement Slip</a>
+                                    @endif
+
+
                                 </div>
                             </div>
                         </div>
@@ -690,6 +660,36 @@
                                         </div>
                                     </div>
                                 </form>
+                            </div>
+                        </div>
+                        {{--<a class="btn btn-default next" href="#">Continue</a>--}}
+                    </div>
+                    <div class="tab-pane fade" id="step6">
+                        <div class="well">
+
+                            <div class="card-body">
+
+                                @if (is_null(Auth::user()->avatar))
+                                    <form id="file-upload-form" class="uploader" action="{{route('update_avatar')}}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+                                        @csrf
+                                        <input id="file-upload" type="file" name="{{ \App\Utils\Constants::DBC_AVATAR }}" accept="image/*" onchange="readURL(this);">
+                                        <label for="file-upload" id="file-drag">
+                                            <img id="file-image" src="#" alt="Preview" class="hidden">
+                                            <div id="start" >
+                                                <i class="fa fa-download" aria-hidden="true"></i>
+                                                <div>Select a file or drag here</div>
+                                                <div id="notimage" class="hidden">Please select an image</div>
+                                                <span id="file-upload-btn" class="btn btn-primary">Select a file</span>
+                                                <br>
+                                                <span class="text-danger">{{ $errors->first( \App\Utils\Constants::DBC_AVATAR ) }}</span>
+                                            </div>
+                                            <button type="submit" class="btn btn-success">Submit</button>
+                                        </label>
+                                    </form>
+                                @else
+                                    <img src="{{ asset('storage/'.Auth::user()->avatar) }}" width="120px" height="120px">
+                                @endif
+                                <br>
                             </div>
                         </div>
                         {{--<a class="btn btn-default next" href="#">Continue</a>--}}

@@ -33,7 +33,7 @@ $factory->define(\App\UserStudentProfile::class, function (Faker $faker)  use ($
             'reg_code' => $regCodePrefix . strtoupper(Str::random(5)),
         ])->id,
 //        Constants::DBC_ENROLL_CLASS_ID => 1,
-        Constants::DBC_ENROLL_SESS_ID => $currentSessionId,
+//        Constants::DBC_ENROLL_SESS_ID => $currentSessionId,
     ];
 });
 

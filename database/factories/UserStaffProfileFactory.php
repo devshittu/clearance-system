@@ -28,7 +28,7 @@ $factory->define(\App\UserStaffProfile::class, function (Faker $faker)  use ($au
             'email' => 'staff'.$autoIncrement->current().'@test.com',
             'reg_code' => $regCodePrefix . strtoupper(Str::random(5)),
         ])->id,
-        Constants::DBC_STAFF_ROLE_ID => rand(1, 5)
+        Constants::DBC_STAFF_ROLE_ID => rand(1, 4)
     ];
 });
 

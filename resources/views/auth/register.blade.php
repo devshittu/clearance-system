@@ -9,7 +9,7 @@
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="candidate-tab" data-toggle="tab" href="#candidate" role="tab"
-                               aria-controls="candidate" aria-selected="false">Candidate </a>
+                               aria-controls="candidate" aria-selected="false">Student </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="staff-tab" data-toggle="tab" href="#staff" role="tab"
@@ -31,7 +31,7 @@
                                 <form method="POST" action="{{ route('register') }}">
                                     @csrf
                                     <input id="type" type="hidden"
-                                           name="type" value="{{ \App\Utils\Constants::DBCV_USER_TYPE_CANDIDATE }}" required
+                                           name="type" value="{{ \App\Utils\Constants::DBCV_USER_TYPE_STUDENT }}" required
                                            autocomplete="type">
 
                                     <div class="form-group row">
@@ -108,7 +108,7 @@
                                     </div>
 
 
-                                    <div class="form-group row">
+                                    {{--<div class="form-group row">
                                         <label for="academic_class_id"
                                                class="col-md-4 col-form-label text-md-right">{{ __('Class') }}</label>
 
@@ -127,7 +127,7 @@
                                     </span>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div>--}}
 
                                     <div class="form-group row">
                                         <label for="email"
@@ -176,7 +176,7 @@
                                     <div class="form-group row mb-0">
                                         <div class="col-md-6 offset-md-4">
                                             <button type="submit" class="btn btn-primary">
-                                                {{ __('Register Candidate') }}
+                                                {{ __('Register Student') }}
                                             </button>
                                         </div>
                                     </div>

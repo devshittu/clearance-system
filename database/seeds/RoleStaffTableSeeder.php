@@ -25,8 +25,8 @@ class RoleStaffTableSeeder extends Seeder
             (5, 2, 2, $dateNow),
             (6, 3, 3, $dateNow),
             (7, 3, 4, $dateNow),
-            (4, 2, 5, $dateNow),
-            (6, 3, 1, $dateNow),
+            (4, 2, 1, $dateNow),
+            (6, 3, 3, $dateNow),
             (3, 3, 2, $dateNow);
         ");
     }

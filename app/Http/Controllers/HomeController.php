@@ -60,6 +60,8 @@ class HomeController extends Controller
             $data['users'] = $student;
             $data['user'] = $user;
             $data['staffs'] = UserStaffProfile::all();
+//            $data['staffs'] = User::whereType(Constants::DBCV_USER_TYPE_STAFF)->withTrashed()->get();
+//            dd($data['staffs']);
             $data['roles'] = Role::all();
             $data['academic_sessions'] = AcademicSession::all();
 //            $data['academic_terms'] = AcademicTerm::all();

@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('studentaffairs/clearance/apply',  'ClearanceController@apply_studentaffairs_clearance')->name('apply_studentaffairs_clearance');
     Route::get('user/staff/show_desk',  'HomeController@showDesk')->name('show_desk');
     Route::post('user/staff/clear_student/{student_id}/{role_id}',  'ClearanceController@clearStudentInRoleByStaff')->name('clear_student_in_role_by_staff');
+    Route::get('user/student/show_ack_slip',  'UsersController@showAckSlip')->name('show_ack_slip');
 
     Route::post('user/avatar/update',  'UsersController@avatar_update')->name('update_avatar');
 
