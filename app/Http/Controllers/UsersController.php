@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\ClassStaff;
+use App\RoleStaff;
 use App\ClassSubject;
 use App\ClassTerm;
 use App\StudentTerminalLog;
@@ -319,17 +319,17 @@ class UsersController extends Controller
     {
         $duties = $request->duty;
 //        override
-        ClassStaff::where('user_id', $user_id)->forceDelete();
+        RoleStaff::where('user_id', $user_id)->forceDelete();
         for ($i = 0; $i < count($duties); $i++) {
-            $classStaff = ClassStaff::where('user_id', $user_id);
-            $classStaff = $classStaff->where('academic_class_id', $duties[$i])->first();
-            if (!is_null($classStaff)) break;
+            $roleStaff = RoleStaff::where('user_id', $user_id);
+            $roleStaff = $roleStaff->where('role_id', $duties[$i])->first();
+            if (!is_null($roleStaff)) break;
             else {
                 if (!is_null($duties[$i])) {
-                    ClassStaff::create([
+                    RoleStaff::create([
                         Constants::DBC_USER_ID => $user_id,
                         Constants::DBC_ACAD_SESS_ID => SystemSetting::find(1)->academic_session_id,
-                        Constants::DBC_ACAD_CLASS_ID => $duties[$i]
+                        Constants::DBC_STAFF_ROLE_ID => $duties[$i]
                     ]);
                 }
             }

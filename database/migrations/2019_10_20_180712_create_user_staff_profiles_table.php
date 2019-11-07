@@ -17,12 +17,19 @@ class CreateUserStaffProfilesTable extends Migration
         Schema::create('user_staff_profiles', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger(Constants::DBC_USER_ID)->index();
-            $table->enum(Constants::DBC_STAFF_CLEARANCE_ROLE, Constants::AV_STAFF_ROLES)->default(Constants::DBCV_STAFF_ROLE_FACULTY);
+            $table->unsignedInteger(Constants::DBC_STAFF_ROLE_ID)->index();
             $table->foreign(Constants::DBC_USER_ID)
                 ->references(Constants::DBC_REF_ID)
                 ->on('users')
                 ->onUpdate('restrict')
                 ->onDelete('restrict');
+
+            $table->foreign(Constants::DBC_STAFF_ROLE_ID)
+                ->references(Constants::DBC_REF_ID)
+                ->on('roles')
+                ->onUpdate('restrict')
+                ->onDelete('restrict');
+
             $table->softDeletes();
             $table->timestamps();
         });

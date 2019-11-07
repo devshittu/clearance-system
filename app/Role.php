@@ -4,13 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class LibraryQuestion extends Model
+class Role extends Model
 {
+    //
     /**
      * Get the staff record associated with the user if it is staff .
      */
-    public function library_clearance_logs()
+    public function role_staff()
     {
-        return $this->hasMany('App\LibraryClearanceLog', 'question_id', 'id');
+        return $this->hasMany('App\RoleStaff', 'role_id', 'id');
     }
 }

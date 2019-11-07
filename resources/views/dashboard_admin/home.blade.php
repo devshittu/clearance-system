@@ -190,9 +190,9 @@
                                                 <th scope="row">{{ ++$key }}</th>
                                                 <td>{{ $staff->user->full_name }}</td>
                                                 <td>
-                                                    {{--@foreach($staff->staff_classes as $class)--}}
-                                                        {{--{{ $class->academic_class->code_name. ', ' }}--}}
-                                                    {{--@endforeach--}}
+                                                    @foreach($staff->staff_roles as $role)
+                                                        {{ $role->role->code_name. ', ' }}
+                                                    @endforeach
                                                 </td>
                                                 <td>
 
@@ -230,9 +230,9 @@
                                                                             <select class="form-control"
                                                                                     name="duty[]"
                                                                                     id="duty1" required>
-                                                                                {{--@foreach ($academic_classes as $c)--}}
-                                                                                    {{--<option value="{{ $c->id }}">{{ $c->title }}</option>--}}
-                                                                                {{--@endforeach--}}
+                                                                                @foreach ($roles as $c)
+                                                                                    <option value="{{ $c->id }}">{{ $c->title }}</option>
+                                                                                @endforeach
                                                                             </select>
                                                                         </div>
                                                                         <div class="form-group">
@@ -242,9 +242,9 @@
                                                                                     name="duty[]"
                                                                                     id="duty2" required>
                                                                                 <option value="">Select</option>
-                                                                                {{--@foreach ($academic_classes as $c)--}}
-                                                                                    {{--<option value="{{ $c->id }}">{{ $c->title }}</option>--}}
-                                                                                {{--@endforeach--}}
+                                                                                @foreach ($roles as $c)
+                                                                                    <option value="{{ $c->id }}">{{ $c->title }}</option>
+                                                                                @endforeach
                                                                             </select>
                                                                         </div>
 

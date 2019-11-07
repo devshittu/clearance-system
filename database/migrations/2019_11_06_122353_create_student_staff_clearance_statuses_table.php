@@ -21,6 +21,13 @@ class CreateStudentStaffClearanceStatusesTable extends Migration
             $table->boolean(Constants::DBC_IS_CLEARED)->index()->default(0);
             $table->enum(Constants::DBC_STAFF_CLEARANCE_FOR, Constants::AV_STAFF_ROLES);
 
+            $table->unsignedInteger(Constants::DBC_STAFF_ROLE_ID)->index();
+            $table->foreign(Constants::DBC_STAFF_ROLE_ID)
+                ->references(Constants::DBC_REF_ID)
+                ->on('roles')
+                ->onUpdate('restrict')
+                ->onDelete('restrict');
+
 
             $table->foreign(Constants::DBC_USER_ID)
                 ->references(Constants::DBC_REF_ID)

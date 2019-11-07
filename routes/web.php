@@ -24,6 +24,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('settings/update',  'SettingsController@update')->name('settings_update');
 //    Route::post('settings/exam/update',  'SettingsController@exam_update')->name('settings_exams_update');
     Route::post('user/candidate/score/{user_id}/update',  'UsersController@candidate_score_update')->name('update_candidate_score');
+    Route::post('faculty/clearance/apply',  'ClearanceController@apply_faculty_clearance')->name('apply_faculty_clearance');
+    Route::post('library/clearance/apply',  'ClearanceController@apply_library_clearance')->name('apply_library_clearance');
+    Route::post('sport/clearance/apply',  'ClearanceController@apply_sport_clearance')->name('apply_sport_clearance');
+    Route::post('studentaffairs/clearance/apply',  'ClearanceController@apply_studentaffairs_clearance')->name('apply_studentaffairs_clearance');
     Route::post('user/avatar/update',  'UsersController@avatar_update')->name('update_avatar');
     Route::post('user/candidate/accept_admission',  'UsersController@candidateAcceptAdmission')->name('accept_admission');
     Route::post('user/student/accept_terminal_migration',  'UsersController@studentAcceptMigration')->name('accept_terminal_migration');

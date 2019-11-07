@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
 
 
+        $this->call(RolesTableSeeder::class);
         $this->call(AcademicSessionsTableSeeder::class);
         $this->call(FacultyQuestionsTableSeeder::class);
         $this->call(LibraryQuestionsTableSeeder::class);
@@ -25,5 +26,6 @@ class DatabaseSeeder extends Seeder
         factory('App\UserStaffProfile', 5)->create();
         factory('App\UserStudentProfile', 5)->create();
 
+        $this->call(RoleStaffTableSeeder::class);
     }
 }

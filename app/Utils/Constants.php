@@ -74,6 +74,7 @@ class Constants
 
 
     public const DBC_STAFF_CLEARANCE_ROLE = 'clearance_role';
+    public const DBC_STAFF_ROLE_ID = 'role_id';
     public const DBC_STAFF_CLEARANCE_FOR = 'clearance_for';
 
     public const DBCV_STAFF_ROLE_FACULTY = 'faculty';

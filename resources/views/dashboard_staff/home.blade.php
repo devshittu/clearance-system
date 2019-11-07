@@ -76,18 +76,17 @@
                     </thead>
                     <tbody>
 
-                    @foreach ($classes as $key => $class )
+                    @foreach ($roles as $key => $role )
                         <tr>
                             <th scope="row">
-                                {{--{{ $subject->id }} --}}
                                 {{ ++$key }}
                             </th>
-                            <td>{{ $class->academic_class->title }}</td>
-                            <td>{{ $class->academic_class->code_name ?? '-' }}</td>
-                            <td>{{ $class->academic_session->code_name ?? '-' }}</td>
+                            <td>{{ $role->role->title }}</td>
+                            <td>{{ $role->role->code_name ?? '-' }}</td>
+                            <td>{{ $role->academic_session->code_name ?? '-' }}</td>
                             <td><a href="{{ route('show_class', [
-                            \App\Utils\Constants::DBC_ACAD_CLASS_ID => $class->academic_class->id,
-                            \App\Utils\Constants::DBC_ACAD_SESS_ID => $class->academic_session->id
+                            \App\Utils\Constants::DBC_STAFF_ROLE_ID => $role->role->id,
+                            \App\Utils\Constants::DBC_ACAD_SESS_ID => $role->academic_session->id
                             ]) }}"> {{ 'View' }}</a></td>
                         </tr>
                     @endforeach

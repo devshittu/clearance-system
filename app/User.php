@@ -75,9 +75,9 @@ class User extends Authenticatable
     /**
      * Get the staff record associated with the user if it is staff .
      */
-    public function class_staff()
+    public function role_staff()
     {
-        return $this->hasMany('App\ClassStaff');
+        return $this->hasMany('App\RoleStaff');
     }
 
     /**

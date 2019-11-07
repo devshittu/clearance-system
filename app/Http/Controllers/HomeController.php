@@ -6,9 +6,17 @@ use App\AcademicClass;
 use App\AcademicSession;
 use App\AcademicSubject;
 use App\AcademicTerm;
-use App\ClassStaff;
+use App\FacultyClearanceLog;
+use App\FacultyQuestion;
+use App\LibraryClearanceLog;
+use App\LibraryQuestion;
+use App\Role;
+use App\RoleStaff;
 use App\ClassSubject;
 use App\ClassTerm;
+use App\SportClearanceLog;
+use App\SportQuestion;
+use App\StudentaffairClearanceLog;
 use App\StudentTerminalLog;
 use App\StudentTerminalLogSubject;
 use App\User;
@@ -51,18 +59,34 @@ class HomeController extends Controller
             $data['users'] = $student;
             $data['user'] = $user;
             $data['staffs'] = UserStaffProfile::all();
-//            $data['academic_classes'] = AcademicClass::all();
+            $data['roles'] = Role::all();
             $data['academic_sessions'] = AcademicSession::all();
 //            $data['academic_terms'] = AcademicTerm::all();
-        }
-        elseif (Auth::user()->type === 'candidate') {
-            $profile = UserCandidateProfile::where('user_id', Auth::id())->first();
-            $data['profile'] = $profile;
         }
 
         elseif (Auth::user()->type === Constants::DBCV_USER_TYPE_STUDENT) {
             $profile = UserStudentProfile::where('user_id', Auth::id())->first();
             $data['profile'] = $profile;
+            $data['faculty_questions'] = FacultyQuestion::all();
+            $data['sport_questions'] = SportQuestion::all();
+            $data['library_questions'] = LibraryQuestion::all();
+            $data['studentaffairs_questions'] = LibraryQuestion::all();
+            $facultyQuestionAnswers = FacultyClearanceLog::where('user_id', Auth::id())->get()->toArray();
+            $data['faculty_question_answers'] = collect( array_column($facultyQuestionAnswers, 'answer', 'question_id'));
+
+            $libraryQuestionAnswers = LibraryClearanceLog::where('user_id', Auth::id())->get()->toArray();
+            $data['library_question_answers'] = collect( array_column($libraryQuestionAnswers, 'answer', 'question_id'));
+
+            $sportQuestionAnswers = SportClearanceLog::where('user_id', Auth::id())->get()->toArray();
+            $data['sport_question_answers'] = collect( array_column($sportQuestionAnswers, 'answer', 'question_id'));
+
+            $studentaffairQuestionAnswers = StudentaffairClearanceLog::where('user_id', Auth::id())->get()->toArray();
+            $data['studentaffair_question_answers'] = collect( array_column($studentaffairQuestionAnswers, 'answer', 'question_id'));
+
+//            foreach ($data['faculty_question_answers'] as $answer) {
+//                dd($answer, $answer->faculty_question);
+//            }
+//            dd($data['faculty_question_answers']);
 
 //            $studentTerminalLog = StudentTerminalLog::where(Constants::RQ_USER_ID, Auth::id())->latest('id')->first();
 //            $data['subjects'] = $studentTerminalLog->student_terminal_log_subjects;
@@ -73,14 +97,8 @@ class HomeController extends Controller
             $profile = UserStaffProfile::where('user_id', Auth::id())->first();
             $data['profile'] = $profile;
 
-            $data['classes'] = ClassStaff::where('user_id', Auth::id())->get();//->pluck(Constants::DBC_ACAD_CLASS_ID);
+            $data['roles'] = RoleStaff::where('user_id', Auth::id())->get();//->pluck(Constants::DBC_ACAD_CLASS_ID);
 
-
-//            foreach ($data['classes'] as $class) {
-//                dump($class, $class->academic_class->title);
-//            }
-
-//            dd($data['classes']);
 
         }
 
@@ -99,20 +117,16 @@ class HomeController extends Controller
      */
     public function showClass(Request $request)
     {
-        $academicClassId = isset($request->query()[Constants::DBC_ACAD_CLASS_ID ]) ? $request->query()[Constants::DBC_ACAD_CLASS_ID ] : null;
+        $roleId = isset($request->query()[Constants::DBC_STAFF_ROLE_ID ]) ? $request->query()[Constants::DBC_STAFF_ROLE_ID ] : null;
         $academicSessionId = isset($request->query()[Constants::DBC_ACAD_SESS_ID ]) ? $request->query()[Constants::DBC_ACAD_SESS_ID ] : null;
 
-        $getClassById = AcademicClass::whereId($academicClassId)->first();
+        $getRoleById = Role::whereId($roleId)->first();
 
 
-//        dd($getClassById, $getClassById->user_student_profiles);
-//        $studentTerminalLog = StudentTerminalLog::where(Constants::DBC_ACAD_SESS_ID, $academicSessionId)->first();
-//        $classTerm = ClassTerm::where(Constants::DBC_ACAD_CLASS_ID, $academicClassId)->get();
-//        dd($classTerm->student_terminal_log);
 //        get class of staff from ClassStaff and then
 
-        $data['class'] = $getClassById;
-        $data['class_students'] = $getClassById->user_student_profiles;
+        $data['role'] = $getRoleById;
+        $data['class_students'] = $getRoleById->user_student_profiles;
 
 
         $path = '/dashboard_' . Auth::user()->type . '.class_student';
