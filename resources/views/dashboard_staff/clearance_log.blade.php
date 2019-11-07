@@ -51,11 +51,10 @@
 
                                 </td>
                                 <td>
-                                    {{ 'AuthID: '.Auth::id() . ' UserId: '. $key }}
                                     <button class="btn btn-primary btn-sm"
                                        href="{{ route('clear_student_in_role_by_staff', ['student_id' => $key, 'role_id' => $role->id]) }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('clear_student_in_role_by_staff-form').submit();"
+                                                     document.getElementById('clear_student_in_role_by_staff-form-{{$key}}').submit();"
                                             @if(!is_null(\App\StudentStaffClearanceStatus::where('staff_id', Auth::id())->where('role_id', $role->id)->where('user_id', $key)->first()))
                                             disabled
                                             @endif
@@ -63,7 +62,7 @@
                                         {{ __(' Clear Student') }}
                                     </button>
 
-                                    <form id="clear_student_in_role_by_staff-form" action="{{ route('clear_student_in_role_by_staff', ['student_id' => $key, 'role_id' => $role->id]) }}" method="POST"
+                                    <form id="clear_student_in_role_by_staff-form-{{ $key }}" action="{{ route('clear_student_in_role_by_staff', ['student_id' => $key, 'role_id' => $role->id]) }}" method="POST"
                                           style="display: none;">
                                         @csrf
                                         <input type="hidden" value="{{ $key }}" name="student_id">

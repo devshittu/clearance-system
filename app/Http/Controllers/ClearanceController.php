@@ -148,7 +148,8 @@ class ClearanceController extends Controller
 
     public function clearStudentInRoleByStaff(Request $request, $student_id, $role_id)
     {
-        $checkStatus = StudentStaffClearanceStatus::where('staff_id', Auth::id())->where('user_id', $student_id)->first();
+
+        $checkStatus = StudentStaffClearanceStatus::where('staff_id', Auth::id())->where('user_id', $student_id)->where('role_id', $role_id)->first();
         $getClearanceStatus = !is_null($checkStatus) ? $checkStatus->is_cleared : false;
         if ($getClearanceStatus) {
             $checkStatus->is_cleared = true;
@@ -157,8 +158,8 @@ class ClearanceController extends Controller
             $newClearance = new StudentStaffClearanceStatus;
             $newClearance->is_cleared = true;
             $newClearance->staff_id = Auth::id();
-            $newClearance->role_id = $role_id;
-            $newClearance->user_id = $student_id;
+            $newClearance->role_id = $request->role_id;
+            $newClearance->user_id = $request->student_id;
             $newClearance->save();
         }
 
