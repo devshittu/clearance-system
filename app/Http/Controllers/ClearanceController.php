@@ -21,8 +21,12 @@ class ClearanceController extends Controller
     {
         $newInputArray = [];
         $fromRequestInputs = $request->all();
+        $next = $request->get('next');
+//        return redirect()->route('home', ['next' =>  $next])->with('success_message', 'Application submitted for Faculty clearance!.');
 
         unset($fromRequestInputs['_token']);
+        unset($fromRequestInputs['next']);
+//        dd($fromRequestInputs);
         foreach ($fromRequestInputs as $key => $fromRequestInput) {
             $question = FacultyQuestion::where(Constants::DBC_REF_CODE_NAME, $key)
                 ->first();
@@ -45,7 +49,7 @@ class ClearanceController extends Controller
             }
         }
 
-        return redirect()->back()->with('success_message', 'Application submitted for Faculty clearance!.');
+        return redirect()->route('home', ['next' =>  $next])->with('success_message', 'Application submitted for Faculty clearance!.');
 
     }
 
@@ -53,8 +57,11 @@ class ClearanceController extends Controller
     {
         $newInputArray = [];
         $fromRequestInputs = $request->all();
+        $next = $request->get('next');
+//        return redirect()->route('home', ['next' =>  $next])->with('success_message', 'Application submitted for Library clearance!.');
 
         unset($fromRequestInputs['_token']);
+        unset($fromRequestInputs['next']);
         foreach ($fromRequestInputs as $key => $fromRequestInput) {
             $question = LibraryQuestion::where(Constants::DBC_REF_CODE_NAME, $key)
                 ->first();
@@ -77,7 +84,7 @@ class ClearanceController extends Controller
             }
         }
 
-        return redirect()->back()->with('success_message', 'Application submitted for Library clearance!.');
+        return redirect()->route('home', ['next' =>  $next])->with('success_message', 'Application submitted for Library clearance!.');
 
     }
 
@@ -85,8 +92,10 @@ class ClearanceController extends Controller
     {
         $newInputArray = [];
         $fromRequestInputs = $request->all();
+        $next = $request->get('next');
 
         unset($fromRequestInputs['_token']);
+        unset($fromRequestInputs['next']);
         foreach ($fromRequestInputs as $key => $fromRequestInput) {
             $question = SportQuestion::where(Constants::DBC_REF_CODE_NAME, $key)
                 ->first();
@@ -109,7 +118,7 @@ class ClearanceController extends Controller
             }
         }
 
-        return redirect()->back()->with('success_message', 'Application submitted for Sport clearance!.');
+        return redirect()->route('home', ['next' =>  $next])->with('success_message', 'Application submitted for Sport clearance!.');
 
     }
 
@@ -117,8 +126,10 @@ class ClearanceController extends Controller
     {
         $newInputArray = [];
         $fromRequestInputs = $request->all();
+        $next = $request->get('next');
 
         unset($fromRequestInputs['_token']);
+        unset($fromRequestInputs['next']);
         foreach ($fromRequestInputs as $key => $fromRequestInput) {
             $question = StudentaffairQuestion::where(Constants::DBC_REF_CODE_NAME, $key)
                 ->first();
@@ -141,7 +152,7 @@ class ClearanceController extends Controller
             }
         }
 
-        return redirect()->back()->with('success_message', 'Application submitted for Student Affairs clearance!.');
+        return redirect()->route('home', ['next' =>  $next])->with('success_message', 'Application submitted for Student Affairs clearance!.');
 
     }
 

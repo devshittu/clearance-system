@@ -17,6 +17,7 @@ use App\ClassTerm;
 use App\SportClearanceLog;
 use App\SportQuestion;
 use App\StudentaffairClearanceLog;
+use App\StudentaffairQuestion;
 use App\StudentStaffClearanceStatus;
 use App\StudentTerminalLog;
 use App\StudentTerminalLogSubject;
@@ -28,6 +29,7 @@ use App\UserStudentProfile;
 use App\Utils\Constants;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Console\Input\Input;
 
 class HomeController extends Controller
 {
@@ -47,13 +49,15 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $student = User::all();
 
-        $data = [];
 
+        $data = [];
+        $data['next'] = $request->get('next');
+//        dd($data['next']);
         if (Auth::user()->type === 'admin') {
             $profile = UserAdminProfile::where('user_id', Auth::id())->first();
             $data['profile'] = $profile;
@@ -73,7 +77,8 @@ class HomeController extends Controller
             $data['faculty_questions'] = FacultyQuestion::all();
             $data['sport_questions'] = SportQuestion::all();
             $data['library_questions'] = LibraryQuestion::all();
-            $data['studentaffairs_questions'] = LibraryQuestion::all();
+            $data['studentaffairs_questions'] = StudentaffairQuestion::all();
+//            dd($data['studentaffairs_questions']);
             $facultyQuestionAnswers = FacultyClearanceLog::where('user_id', Auth::id())->get()->toArray();
             $data['faculty_question_answers'] = collect( array_column($facultyQuestionAnswers, 'answer', 'question_id'));
 

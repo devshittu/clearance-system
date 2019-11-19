@@ -20,7 +20,7 @@ class FacultyQuestionsTableSeeder extends Seeder
             INSERT INTO `faculty_questions` (`question`, `code_name`, `created_at`) VALUES
             ('Did you meet your Dean for signature?', 'dean_signature', $dateNow),
             ('Did you meet your Level coordinator for signature?', 'lcoord_signature', $dateNow),
-            ('How well has the faculty served you?', 'SCS',  $dateNow);
+            ('How well has the faculty served you?', 'service',  $dateNow);
         ");
     }
 }

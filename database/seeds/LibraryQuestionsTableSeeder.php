@@ -15,11 +15,10 @@ class LibraryQuestionsTableSeeder extends Seeder
         $dateNow = '\'' . now() . '\'';
 
         DB::statement("
-
             INSERT INTO `library_questions` (`question`, `code_name`, `created_at`) VALUES
-            ('Did you meet your Dean for signature?', 'dean_signature', $dateNow),
-            ('Did you meet your Level coordinator for signature?', 'lcoord_signature', $dateNow),
-            ('How well has the faculty served you?', 'SCS',  $dateNow);
+            ('Have you any pending book in your domitary?', 'pending_book', $dateNow),
+            ('Do you use the library frequently?', 'use_frequency', $dateNow),
+            ('How has the school library served you?', 'service',  $dateNow);
         ");
     }
 }

@@ -17,9 +17,9 @@ class StudentaffairQuestionsTableSeeder extends Seeder
         DB::statement("
 
             INSERT INTO `studentaffair_questions` (`question`, `code_name`, `created_at`) VALUES
-            ('Did you meet your Dean for signature?', 'dean_signature', $dateNow),
-            ('Did you meet your Level coordinator for signature?', 'lcoord_signature', $dateNow),
-            ('How well has the faculty served you?', 'SCS',  $dateNow);
+            ('Have you physically return your school id card?', 'id_return_status', $dateNow),
+            ('Did you spend your last for years in the hostel?', 'hostel_use', $dateNow),
+            ('How has the school served you during time spent?', 'service',  $dateNow);
         ");
     }
 }

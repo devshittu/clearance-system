@@ -335,28 +335,28 @@
 
                 <hr>
 
-                <div class="progress">
+                {{--<div class="progress">
                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1"
                          aria-valuemin="1"
                          aria-valuemax="5" style="width: 20%;">
                         Step 1 of 5
                     </div>
                 </div>
-
+--}}
                 <div class="navbar">
                     <div class="navbar-inner">
                         <ul class="nav nav-pills" id="pills-tab" role="tablist">
                             <li class="nav-item"><a href="#step1" class="nav-link" data-toggle="tab" data-step="1">Status
                                 </a>
                             </li>
-                            <li class="nav-item"><a href="#step2" class="nav-link active" data-toggle="tab"
+                            <li class="nav-item"><a href="#step2" class="nav-link @if($next == 'faculty' or $next == null)active @endif" data-toggle="tab"
                                                     data-step="2">Faculty </a></li>
-                            <li class="nav-item"><a href="#step3" class="nav-link" data-toggle="tab" data-step="3">Library</a>
+                            <li class="nav-item"><a href="#step3" class="nav-link  @if($next == 'library')active @endif" data-toggle="tab" data-step="3">Library</a>
                             </li>
-                            <li class="nav-item"><a href="#step4" class="nav-link" data-toggle="tab"
+                            <li class="nav-item"><a href="#step4" class="nav-link @if($next == 'sport')active @endif" data-toggle="tab"
                                                     data-step="4">Sport</a>
                             </li>
-                            <li class="nav-item"><a href="#step5" class="nav-link" data-toggle="tab" data-step="5">Student
+                            <li class="nav-item"><a href="#step5" class="nav-link @if($next == 'student_affairs')active @endif" data-toggle="tab" data-step="5">Student
                                     Affairs</a>
                             </li>
                             <li class="nav-item"><a href="#step6" class="nav-link" data-toggle="tab" data-step="6">Student
@@ -476,13 +476,12 @@
                         </div>
                         {{--<a class="btn btn-success first" href="#">Start over</a>--}}
                     </div>
-                    <div class="tab-pane fade in show active" id="step2">
+                    <div class="tab-pane fade in show @if($next == 'faculty' or $next == null)active @endif" id="step2">
 
                         <div class="well">
 
-
                             <div class="card-body">
-                                <form method="POST" action="{{ route('apply_faculty_clearance') }}">
+                                <form method="POST" action="{{ route('apply_faculty_clearance', ['next' => 'library']) }}">
 
                                     @foreach ($faculty_questions as $key => $question )
 
@@ -525,11 +524,11 @@
                         </div>
 
                     </div>
-                    <div class="tab-pane fade" id="step3">
+                    <div class="tab-pane fade in show @if($next == 'library')active @endif" id="step3">
                         <div class="well">
 
                             <div class="card-body">
-                                <form method="POST" action="{{ route('apply_library_clearance') }}">
+                                <form method="POST" action="{{ route('apply_library_clearance', ['next' => 'sport']) }}">
 
                                     @foreach ($library_questions as $key => $question )
 
@@ -572,11 +571,11 @@
                         </div>
                         {{--<a class="btn btn-default next" href="#">Continue</a>--}}
                     </div>
-                    <div class="tab-pane fade" id="step4">
+                    <div class="tab-pane fade in show @if($next == 'sport')active @endif" id="step4">
                         <div class="well">
 
                             <div class="card-body">
-                                <form method="POST" action="{{ route('apply_sport_clearance') }}">
+                                <form method="POST" action="{{ route('apply_sport_clearance', ['next' => 'student_affairs']) }}">
 
                                     @foreach ($sport_questions as $key => $question )
 
@@ -618,13 +617,13 @@
                         </div>
                         {{--<a class="btn btn-default next" href="#">Continue</a>--}}
                     </div>
-                    <div class="tab-pane fade" id="step5">
+                    <div class="tab-pane fade in show @if($next == 'student_affairs') active @endif" id="step5">
                         <div class="well">
 
                             <div class="card-body">
                                 <form method="POST" action="{{ route('apply_studentaffairs_clearance') }}">
 
-                                    @foreach ($sport_questions as $key => $question )
+                                    @foreach ($studentaffairs_questions as $key => $question )
 
                                         @csrf
 

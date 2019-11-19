@@ -16,9 +16,9 @@ class SportQuestionsTableSeeder extends Seeder
         DB::statement("
 
             INSERT INTO `sport_questions` (`question`, `code_name`, `created_at`) VALUES
-            ('Did you meet your Dean for signature?', 'dean_signature', $dateNow),
-            ('Did you meet your Level coordinator for signature?', 'lcoord_signature', $dateNow),
-            ('How well has the faculty served you?', 'SCS',  $dateNow);
+            ('What sporting activities did you take part in while in school?', 'your_activities', $dateNow),
+            ('Do you have any pending contract with the school Gym?', 'gym_contract', $dateNow),
+            ('How has the sport department served you during your stay on campus?', 'service',  $dateNow);
         ");
     }
 }
