@@ -23,6 +23,7 @@ $factory->define(\App\UserStudentProfile::class, function (Faker $faker)  use ($
     $selectedGenderType = $allowedGenderTypes[$avGenderAtRand];
     $regCodePrefix = get_reg_code_prefix($selectedUserType);
     $currentSessionId = \App\SystemSetting::find(1)->academic_session_id;
+    $regNo = str_pad($autoIncrement->current(), 5, '0', STR_PAD_LEFT);
 
     return [
         Constants::DBC_USER_ID => factory('App\User')->create([
@@ -30,7 +31,8 @@ $factory->define(\App\UserStudentProfile::class, function (Faker $faker)  use ($
             'type' => $selectedUserType,
             'gender' => $selectedGenderType,
             'email' => 'student'.$autoIncrement->current().'@test.com',
-            'reg_code' => $regCodePrefix . strtoupper(Str::random(5)),
+            'reg_code' => $regCodePrefix . $regNo,
+//            'reg_code' => $regCodePrefix . random_digits(5),
         ])->id,
 //        Constants::DBC_ENROLL_CLASS_ID => 1,
 //        Constants::DBC_ENROLL_SESS_ID => $currentSessionId,

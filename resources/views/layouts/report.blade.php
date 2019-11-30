@@ -32,6 +32,11 @@
                             {{ session()->get('success_message') }}
                         </div>
                     @endif
+                    @if(session()->has('failure_message'))
+                        <div class="alert alert-danger">
+                            {{ session()->get('failure_message') }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

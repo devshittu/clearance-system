@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Utils\Constants;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -44,4 +45,66 @@ class LoginController extends Controller
 //        $path = '/' . Auth::user()->type . '.home';
 //        return $path;
 //    }
+
+
+    public function authenticate(Request $request)
+    {
+        $username = $request->username;
+        $password = $request->password;
+
+        if(filter_var($username, FILTER_VALIDATE_EMAIL)) {
+            //user sent their email
+            Auth::attempt(['email' => $username, 'password' => $password]);
+        } else {
+            //they sent their username instead
+            Auth::attempt(['username' => $username, 'password' => $password]);
+        }
+
+//was any of those correct ?
+        if ( Auth::check() ) {
+            //send them where they are going
+            return redirect()->intended($this->redirectTo);
+        }
+
+//Nope, something wrong during authentication
+        return redirect()->back()->withErrors([
+            'credentials' => 'Please, check your credentials'
+        ]);
+
+//        $credentials = $request->only('email', 'password');
+
+//        if (Auth::attempt($credentials)) {
+            // Authentication passed...
+//            return redirect()->intended('dashboard');
+//        }
+    }
+
+    public function login(Request $request)
+    {
+
+        $username = $request->email;
+        $password = $request->password;
+
+        if(filter_var($username, FILTER_VALIDATE_EMAIL)) {
+            //user sent their email
+            Auth::attempt(['email' => $username, 'password' => $password]);
+        } else {
+            //they sent their username instead
+//            Auth::attempt(['username' => $username, 'password' => $password]);
+            Auth::attempt(['reg_code' => $username, 'password' => $password]);
+        }
+
+//was any of those correct ?
+        if ( Auth::check() ) {
+            //send them where they are going
+            return redirect()->intended($this->redirectTo);
+        }
+
+//Nope, something wrong during authentication
+        return redirect()->back()->withErrors([
+            'credentials' => 'Please, check your credentials'
+        ]);
+
+    }
+
 }

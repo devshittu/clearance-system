@@ -19,6 +19,7 @@ class RolesTableSeeder extends Seeder
             ('Faculty', 'faculty', $dateNow),
             ('Library', 'library', $dateNow),
             ('Sport', 'sport', $dateNow),
+            ('Health', 'health', $dateNow),
             ('Student Affairs', 'student_affairs',  $dateNow);
         ");
 //        ('Health', 'health', $dateNow),

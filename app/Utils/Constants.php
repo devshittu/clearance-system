@@ -18,6 +18,9 @@ class Constants
     public const DBC_USER_ID = 'user_id';
     public const DBC_STAFF_ID = 'staff_id';
     public const DBC_IS_CLEARED = 'is_cleared';
+    public const DBC_IS_DECLINED = 'is_declined';
+    public const DBC_IS_FIXED = 'is_fixed';
+    public const DBC_DESCRIPTION = 'description';
     public const DBC_QUESTION_ID = 'question_id';
     public const DBC_ANSWER = 'answer';
 
@@ -49,25 +52,24 @@ class Constants
     public const DBC_REF_REG_CODE = 'reg_code';
     public const DBC_REF_CODE_NAME = 'code_name';
 
-        public const DBCV_USER_TYPE_CANDIDATE = 'candidate';
-        public const DBCV_USER_TYPE_STUDENT = 'student';
-        public const DBCV_USER_TYPE_STAFF = 'staff';
-        public const DBCV_USER_TYPE_ADMIN = 'admin';
+    public const DBCV_USER_TYPE_CANDIDATE = 'candidate';
+    public const DBCV_USER_TYPE_STUDENT = 'student';
+    public const DBCV_USER_TYPE_STAFF = 'staff';
+    public const DBCV_USER_TYPE_ADMIN = 'admin';
 
 
     public const DBCV_GENDER_TYPE_MALE = 'male';
     public const DBCV_GENDER_TYPE_FEMALE = 'female';
 
     //AL: ALLOWABLE VALUE
-    public const AV_USER_TYPE= [self::DBCV_USER_TYPE_CANDIDATE, self::DBCV_USER_TYPE_STUDENT,
+    public const AV_USER_TYPE = [self::DBCV_USER_TYPE_CANDIDATE, self::DBCV_USER_TYPE_STUDENT,
         self::DBCV_USER_TYPE_STAFF, self::DBCV_USER_TYPE_ADMIN,];
 
-    public const AV_GENDER_TYPE= [self::DBCV_GENDER_TYPE_MALE, self::DBCV_GENDER_TYPE_FEMALE, ];
+    public const AV_GENDER_TYPE = [self::DBCV_GENDER_TYPE_MALE, self::DBCV_GENDER_TYPE_FEMALE,];
     const DBC_AVATAR = 'avatar';
 //    const AVATAR_UPLOAD_PATH = 'public/avatar/';
     const AVATAR_UPLOAD_PATH = 'public/avatar';
     const AVATAR_DOWNLOAD_PATH = 'avatar/';
-
 
 
     const DBC_STD_TERMINAL_LOG_ID = 'student_terminal_log_id';
@@ -80,12 +82,29 @@ class Constants
     public const DBCV_STAFF_ROLE_FACULTY = 'faculty';
     public const DBCV_STAFF_ROLE_LIBRARY = 'library';
     public const DBCV_STAFF_ROLE_SPORT = 'sport';
+    public const DBCV_STAFF_ROLE_HEALTH = 'health';
     public const DBCV_STAFF_ROLE_STUDENT_AFFAIRS = 'student_affairs';
-    public const AV_STAFF_ROLES= [
+    public const AV_STAFF_ROLES = [
         self::DBCV_STAFF_ROLE_STUDENT_AFFAIRS,
         self::DBCV_STAFF_ROLE_LIBRARY,
         self::DBCV_STAFF_ROLE_SPORT,
-        self::DBCV_STAFF_ROLE_FACULTY ,
-        ];
+        self::DBCV_STAFF_ROLE_HEALTH,
+        self::DBCV_STAFF_ROLE_FACULTY,
+    ];
+
+    public const DBC_SCHOOL_ITEM_CATEGORY = 'category';
+    public const DBCV_SCHOOL_ITEM_LABORATORY = 'laboratory';
+    public const DBCV_SCHOOL_ITEM_EQUIPMENT = 'equipment';
+    public const AV_SCHOOL_ITEM_CATEGORIES = [
+        self::DBCV_SCHOOL_ITEM_EQUIPMENT,
+        self::DBCV_SCHOOL_ITEM_LABORATORY
+    ];
+    public const DBC_SCHOOL_ITEM_OUTSTANDING_FEE = 'outstanding-fee';
+    public const DBCV_SCHOOL_ITEM_DAMAGES = 'damages';
+    const DBC_ITEM_ID = 'item_id';
+    /*public const AV_SCHOOL_ITEM_CATEGORIES = [
+        self::DBCV_SCHOOL_ITEM_EQUIPMENT,
+        self::DBCV_SCHOOL_ITEM_LABORATORY
+    ];*/
 
 }

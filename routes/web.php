@@ -27,9 +27,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('faculty/clearance/apply',  'ClearanceController@apply_faculty_clearance')->name('apply_faculty_clearance');
     Route::post('library/clearance/apply',  'ClearanceController@apply_library_clearance')->name('apply_library_clearance');
     Route::post('sport/clearance/apply',  'ClearanceController@apply_sport_clearance')->name('apply_sport_clearance');
+    Route::post('health/clearance/apply',  'ClearanceController@apply_health_clearance')->name('apply_health_clearance');
     Route::post('studentaffairs/clearance/apply',  'ClearanceController@apply_studentaffairs_clearance')->name('apply_studentaffairs_clearance');
     Route::get('user/staff/show_desk',  'HomeController@showDesk')->name('show_desk');
+    Route::get('user/staff/show_student_locker/{student_id}',  'HomeController@showStudentLocker')->name('show_student_locker');
+    Route::post('user/staff/fix_student_item/{student_id}/{role_id}/{item_log_id}',  'ClearanceController@fixStudentInRoleItemByStaff')->name('fix_student_in_role_item_by_staff');
     Route::post('user/staff/clear_student/{student_id}/{role_id}',  'ClearanceController@clearStudentInRoleByStaff')->name('clear_student_in_role_by_staff');
+    Route::post('user/staff/unclear_student/{student_id}/{role_id}',  'ClearanceController@unclearStudentInRoleByStaff')->name('unclear_student_in_role_by_staff');
+    Route::get('user/student/show_reason/{role_id}',  'HomeController@showStudentReason')->name('show_student_reason');
     Route::get('user/student/show_ack_slip',  'UsersController@showAckSlip')->name('show_ack_slip');
 
     Route::post('user/avatar/update',  'UsersController@avatar_update')->name('update_avatar');

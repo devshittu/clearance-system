@@ -13,6 +13,14 @@ if (! function_exists('auto_increment')) {
     }
 }
 
+if (! function_exists('random_digits')) {
+    function random_digits($length = 5) {
+        $digits = $length;
+        $res =  str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
+        return $res;
+    }
+
+}
 if (! function_exists('get_reg_code_prefix')) {
 
     function get_reg_code_prefix($userType) {
@@ -28,11 +36,13 @@ if (! function_exists('get_reg_code_prefix')) {
                 $prefix = 'STF';
                 break;
             case \App\Utils\Constants::DBCV_USER_TYPE_STUDENT:
-                $prefix = 'STD';
+//                $prefix = 'STD';
+                $prefix = 'CST.14.COM.';
                 break;
 
         }
-        return $prefix . '_';
+        if ($userType != \App\Utils\Constants::DBCV_USER_TYPE_STUDENT) return $prefix . '_';
+        else return $prefix;
     }
 
 }
@@ -65,35 +75,6 @@ if (! function_exists('random_chars')) {
         }
 
         return $str;
-
-    }
-}
-if (! function_exists('score_grade')) {
-
-    function score_grade($score = null)
-    {
-        $grade = null;
-        if ($score < 45)
-        {
-            $grade = 'F';
-        }
-        elseif ($score<= 49 && $score >=45)
-        {
-            $grade = 'D';
-        }
-        elseif ($score <= 59 && $score >=50)
-        {
-            $grade = 'C';
-        }
-        elseif ($score <= 69 && $score >=60)
-        {
-            $grade = 'B';
-        }
-        else if ($score >= 70)
-        {
-            $grade = 'A';
-        }
-        return $grade;
 
     }
 }

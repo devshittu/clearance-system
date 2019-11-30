@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStudentStaffClearanceStatusesTable extends Migration
+class CreateLibraryItemLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,19 +14,13 @@ class CreateStudentStaffClearanceStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_staff_clearance_statuses', function (Blueprint $table) {
+        Schema::create('library_item_logs', function (Blueprint $table) {
+
             $table->increments('id');
             $table->unsignedInteger(Constants::DBC_USER_ID)->index();
-            $table->unsignedInteger(Constants::DBC_STAFF_ID)->index();
-            $table->boolean(Constants::DBC_IS_CLEARED)->index()->nullable();
-            $table->boolean(Constants::DBC_IS_DECLINED)->index()->nullable();
-
-            $table->unsignedInteger(Constants::DBC_STAFF_ROLE_ID)->index();
-            $table->foreign(Constants::DBC_STAFF_ROLE_ID)
-                ->references(Constants::DBC_REF_ID)
-                ->on('roles')
-                ->onUpdate('restrict')
-                ->onDelete('restrict');
+            $table->boolean(Constants::DBC_IS_FIXED)->index()->default(0);
+            $table->string(Constants::DBC_DESCRIPTION)->nullable();
+            $table->unsignedInteger(Constants::DBC_ITEM_ID)->index();
 
 
             $table->foreign(Constants::DBC_USER_ID)
@@ -35,9 +29,9 @@ class CreateStudentStaffClearanceStatusesTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign(Constants::DBC_STAFF_ID)
+            $table->foreign(Constants::DBC_ITEM_ID)
                 ->references(Constants::DBC_REF_ID)
-                ->on('users')
+                ->on('library_items')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
@@ -53,6 +47,6 @@ class CreateStudentStaffClearanceStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_staff_clearance_statuses');
+        Schema::dropIfExists('library_item_logs');
     }
 }
